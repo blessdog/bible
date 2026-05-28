@@ -17,6 +17,11 @@
 
 set -euo pipefail
 
+# Absolute path to the bible directory (where this script lives). Used to
+# bake an absolute reference into each new project's CLAUDE.md so Claude
+# sessions in the new project know where to find the universal principles.
+BIBLE_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+
 if [ $# -lt 1 ]; then
   echo "usage: init-project.sh <project-name>" >&2
   exit 1
@@ -111,6 +116,20 @@ EOF
 # ─── CLAUDE.md ─────────────────────────────────────────────────────────
 cat > CLAUDE.md <<EOF
 # $PROJECT — Claude working agreement
+
+## Universal principles
+
+This project follows the architectural rules, version-control hygiene,
+and AI-collaboration patterns documented in the **project bible** at:
+
+- Local:  $BIBLE_DIR/README.md
+- GitHub: https://github.com/blessdog/bible (public mirror)
+
+Consult the bible BEFORE suggesting new patterns or proposing
+architectural changes. The terms it uses (SSOT, shotgun surgery,
+make-illegal-states-unrepresentable, don't-rewrite-from-scratch, plan
+mode, hard-pivot tags, etc.) are search handles — use them rather than
+re-inventing.
 
 ## What this project is
 
